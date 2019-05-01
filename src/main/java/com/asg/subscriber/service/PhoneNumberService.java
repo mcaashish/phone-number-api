@@ -8,5 +8,5 @@ public interface PhoneNumberService {
 	
 	public List<String> getAllPhoneNumbersByCustomer(String customerName);
 	
-	public void activateNumner(String number);
+	public void activateNumber(String number);
 }

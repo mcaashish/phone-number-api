@@ -1,6 +1,7 @@
 package com.asg.subscriber.main;
 
 import java.util.Arrays;
+import java.util.HashSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -25,8 +26,8 @@ public class PhoneNumberServiceApplication implements ApplicationRunner {
 
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
-		cache.addCustomer("Jack", Arrays.asList(new PhoneNumber("0434888999"),new PhoneNumber("04445556667")));
-		cache.addCustomer("Miller", Arrays.asList(new PhoneNumber("0434855555"),new PhoneNumber("04445999999")));
+		cache.addCustomer("Jack", new HashSet(Arrays.asList(new PhoneNumber("0434888999"),new PhoneNumber("04445556667"))));
+		cache.addCustomer("Miller", new HashSet(Arrays.asList(new PhoneNumber("0434855555"),new PhoneNumber("04445999999"))));
 		
 	}
 

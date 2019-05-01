@@ -3,6 +3,7 @@ package com.asg.subscriber.service.impl;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,7 @@ public class PhoneNumberServiceImpl implements PhoneNumberService{
 	@Override
 	@RequestMapping(value ="/all/{customer}")
 	public List<String> getAllPhoneNumbersByCustomer(@PathVariable String customer) {
-		List<PhoneNumber> list = cache.getSubscriberCache().get(customer);
+		Set<PhoneNumber> list = cache.getSubscriberCache().get(customer);
 		if(list==null)
 		{
 			System.err.println("Customer " + customer + " not available in records");
@@ -45,11 +46,11 @@ public class PhoneNumberServiceImpl implements PhoneNumberService{
 
 	@Override
 	@RequestMapping(value ="/activate/{number}",method=RequestMethod.POST)
-	public void activateNumner(@PathVariable String number) {
+	public void activateNumber(@PathVariable String number) {
 		Optional<PhoneNumber> phoneNumberOptional = cache.getSubscriberCache().values().stream().flatMap(x->x.stream()).filter( n -> n.getPhoneNumber().equals(number)).findAny();
 		if(phoneNumberOptional.isPresent()) {
 			phoneNumberOptional.get().setActive(true);
-			System.out.println(number + " is activted");
+			System.out.println(number + " is activated");
 		}else
 		{
 			System.err.println("Phone number not available in records");
