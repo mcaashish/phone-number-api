@@ -10,10 +10,6 @@ public class PhoneNumber {
 		return phoneNumber;
 	}
 
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
-
 	public boolean isActive() {
 		return active;
 	}

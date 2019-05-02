@@ -78,6 +78,8 @@ public class PhoneNumberServiceTest {
 
 		Optional<PhoneNumber> number = cache.getSubscriberCache().values().stream().flatMap(x -> x.stream())
 				.filter(n -> n.getPhoneNumber().equals("0434855555111")).findAny();
+		
+		service.activateNumber("0434855555111");
 
 		assertEquals(false, number.isPresent());
 
