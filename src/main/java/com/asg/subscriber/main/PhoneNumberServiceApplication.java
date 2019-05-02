@@ -8,10 +8,16 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 
 import com.asg.subscriber.model.PhoneNumber;
 import com.asg.subscriber.model.SubscriberCacheManager;
+
+import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
 @ComponentScan(basePackages= {"com.asg.subscriber"})
@@ -30,5 +36,5 @@ public class PhoneNumberServiceApplication implements ApplicationRunner {
 		cache.addCustomer("Miller", new HashSet(Arrays.asList(new PhoneNumber("0434855555"),new PhoneNumber("04445999999"))));
 		
 	}
-
+	
 }

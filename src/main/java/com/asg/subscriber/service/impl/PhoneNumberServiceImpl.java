@@ -24,7 +24,7 @@ public class PhoneNumberServiceImpl implements PhoneNumberService{
 	private SubscriberCacheManager cache;
 
 	@Override
-	@RequestMapping(value ="/all")
+	@RequestMapping(value ="/rest/all",method=RequestMethod.GET)
 	public List<String> getAllPhoneNumbers() {
 		System.out.println("calling all...");
 		List<String> allPhoneList = cache.getSubscriberCache().values().stream().flatMap(x-> x.stream()).map(x->x.getPhoneNumber()).collect(Collectors.toList());
@@ -32,7 +32,7 @@ public class PhoneNumberServiceImpl implements PhoneNumberService{
 	}
 
 	@Override
-	@RequestMapping(value ="/all/{customer}")
+	@RequestMapping(value ="/rest/all/{customer}",method=RequestMethod.GET)
 	public List<String> getAllPhoneNumbersByCustomer(@PathVariable String customer) {
 		Set<PhoneNumber> list = cache.getSubscriberCache().get(customer);
 		if(list==null)
@@ -45,16 +45,19 @@ public class PhoneNumberServiceImpl implements PhoneNumberService{
 	}
 
 	@Override
-	@RequestMapping(value ="/activate/{number}",method=RequestMethod.POST)
-	public void activateNumber(@PathVariable String number) {
+	@RequestMapping(value ="/rest/activate/{number}",method=RequestMethod.POST)
+	public String activateNumber(@PathVariable String number) {
+		String message="";
 		Optional<PhoneNumber> phoneNumberOptional = cache.getSubscriberCache().values().stream().flatMap(x->x.stream()).filter( n -> n.getPhoneNumber().equals(number)).findAny();
 		if(phoneNumberOptional.isPresent()) {
 			phoneNumberOptional.get().setActive(true);
-			System.out.println(number + " is activated");
+			message = number + " is activated";
 		}else
 		{
-			System.err.println("Phone number not available in records");
+			message = "Phone number " + number + " not available in records";
 		}
+		
+		return message;
 		
 	}
 	
